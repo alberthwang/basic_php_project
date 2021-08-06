@@ -1,0 +1,46 @@
+dev
+8/5/2021
+5pm
+cookies
+inserted language- cookies example
+can set unset cookies by
+setcookie($name, 0)
+or setcookie($name, $value, (time() - 3600)); expire 1 hr ago
+!!use 0 or 1 to denote true or false for cookies
+cookies slimited to 4kb data
+cookies sent for every post request
+
+sessions
+store data in session file kepted on server
+store reference identifier for the session file in a cookie
+retrieve session file by php
+
+can utilize smallest request size, more storage, conceals data values, more secure/less hackable
+slower to access, expires when browser closes, can accumalate on HD, 
+php does some garbage collection and occassionally delete session file
+
+common uses for sessions
+frequently referred to data, user authentication, storing data during a redirect
+
+starting with sessions
+configure session in php.ini
+can refer to http://php.net/manual/en/session.configuration.php
+turned off by default
+session_start($options)
+
+added to initialize.php to start session at start
+
+session 
+$_SESSION['lang'] = 'English';
+$lang = $_SESSION['lang'] ?? '';
+
+added login/logout page in staff
+unsetting session
+unset($_SESSION['username']);
+// or you could use
+// $_SESSION['username'] = NULL;
+
+added function get_and_clear_session_message and display_session_message
+added message for page/subject edit/new/delete through session variable.
+added #message css
+display message in header

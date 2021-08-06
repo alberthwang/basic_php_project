@@ -1,5 +1,8 @@
 <?php
-ob_start(); //output buffer turned on
+	ob_start(); //output buffer turned on
+
+	session_start();//start session
+
 
 		// Assign file paths to PHP constants
 	// __FILE__ returns the current path to this file
