@@ -44,3 +44,21 @@ added function get_and_clear_session_message and display_session_message
 added message for page/subject edit/new/delete through session variable.
 added #message css
 display message in header
+
+#user authentication
+password protected area
+
+new admin table added, refer to how to connect to sql
+
+CREATE TABLE admins (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(255),
+  last_name VARCHAR(255),
+  email VARCHAR(255),
+  username VARCHAR(255),
+  hashed_password VARCHAR(255),
+  PRIMARY KEY (id)
+);
+
+ALTER TABLE admins ADD INDEX index_username (username);
+
