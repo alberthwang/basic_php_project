@@ -1,4 +1,4 @@
-<?php require_once('../../private/initialize.php'); 
+<?php require_once('../../../private/initialize.php'); 
 
 
 if(is_post_request()){
@@ -60,11 +60,11 @@ if(is_post_request()){
 				<dd><input type="text" name="email" value="<?php echo h($admin['email']); ?>" /></dd>
 			</dl>
 			<dl>
-				<dt>Password></dt>
+				<dt>Password</dt>
 				<dd><input type="password" name="password" value="" /></dd>
 			</dl>
 			<dl>
-				<dt>Confirm Password></dt>
+				<dt>Confirm Password</dt>
 				<dd><input type="password" name="confirm_password" value="" /></dd>
 			</dl>
 			<p>
@@ -78,6 +78,8 @@ if(is_post_request()){
 		</form>
 	</div>
 </div>
+
+<?php include(SHARED_PATH . '/staff_footer.php'); ?>
 
 
 

@@ -1,8 +1,9 @@
-<?php require_once('../../private/initialize.php'); 
+<?php require_once('../../../private/initialize.php'); 
+
 
 
 $id = $_GET['id'] ?? '1';
-$admin_set = find_admin_by_id($id);
+$admin = find_admin_by_id($id);
 
 ?>
 
@@ -44,4 +45,6 @@ $admin_set = find_admin_by_id($id);
 	</div>
 
 
+
+<?php include(SHARED_PATH . '/staff_footer.php'); ?>
 

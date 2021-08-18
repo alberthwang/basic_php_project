@@ -62,3 +62,17 @@ CREATE TABLE admins (
 
 ALTER TABLE admins ADD INDEX index_username (username);
 
+created admins folder and added index.php, show.php, edit.php, delete.php
+along with validation functions and query functions.
+validate_admin, validate_username, and find_all_admins, find_all_admins_by_id, insert_admin, update_admin, delete_admin, 
+
+encryption for password entered, one way encryption blowfish, default for php
+
+known bug
+"Cannot use object of type mysqli_result as array" in delete.php line 28
+fixed by changing query function find_admin_by_id to include mysqli_fetch_assoc and return that instead of returning mysqli result.
+
+staff footers added
+
+hashed password added for insert and update using php hash function.
+
