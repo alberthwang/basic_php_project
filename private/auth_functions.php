@@ -9,6 +9,16 @@
     $_SESSION['username'] = $admin['username'];
     return true;
   }
+  
+//log out functions for admins
+  function log_out_admin(){
+  	unset($_SESSION['admin_id']);
+    unset($_SESSION['last_login']);
+    unset($_SESSION['username']);
+    //session_destory(); //optional destroys whole session
+    return true;
+
+  }
 
   //contains the logic for determining if a request should be
   //considered a "logged in" user request or not.

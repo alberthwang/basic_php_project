@@ -82,4 +82,8 @@ adding authorization
 added is_logged_in() and require_login in auth_function.php
 require_login() added to admin/subject/page endpoints. 
 
+added logout
+added log_out_admin() in auth_function.php
+called in logout.php
+
 
