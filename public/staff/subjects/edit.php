@@ -1,5 +1,7 @@
 <?php require_once('../../../private/initialize.php'); ?>
 <?php 
+require_login();
+
 /*
 testing error/redirect
 $test= $_GET['test'] ?? '';

@@ -1,6 +1,8 @@
 <?php
 require_once('../../../private/initialize.php');
 
+require_login();
+
 /*
 get variable page if not set default 1
 

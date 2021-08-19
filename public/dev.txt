@@ -75,4 +75,11 @@ fixed by changing query function find_admin_by_id to include mysqli_fetch_assoc 
 staff footers added
 
 hashed password added for insert and update using php hash function.
+added auth_function file
+added user authentication in login.php and query function find_admin_by_username
+
+adding authorization
+added is_logged_in() and require_login in auth_function.php
+require_login() added to admin/subject/page endpoints. 
+
 
