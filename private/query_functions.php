@@ -349,7 +349,10 @@ function find_admin_by_username($username){
 
 }
 
-function validate_admin($admin){
+
+function validate_admin($admin, $options=[]){
+
+  $password_required = $options['password_required'] ?? true;
 
  
   if(is_blank($admin['first_name'])){
@@ -381,25 +384,28 @@ function validate_admin($admin){
     $errors[] = "Username not allowed. Try another.";
   }
 
-  if(is_blank($admin['password'])){
-    $errors[]="Password canot be blank.";
-  }elseif(!has_length($admin['password'], array('min' => 12))){
-    $errors[] = "Username must be more than 12 or more chracters";
-  }elseif(!preg_match('/[A-Z]/', $admin['password'])){
-    $errors[] = "Password must contain at least 1 uppercase letter.";
-  }elseif(!preg_match('/[a-z]/', $admin['password'])){
-    $errors[] = "Password must contain at least 1 uppercase letter.";
-  }elseif(!preg_match('/[0-9]/', $admin['password'])){
-    $errors[] = "Password must contain at least 1 uppercase letter.";
-  }elseif(!preg_match('/[^A-Za-z0-9\s]/', $admin['password'])){
-    $errors[] = "Password must contain at least 1 symbol.";
-  }
+  if($password_required){
+    if(is_blank($admin['password'])){
+      $errors[]="Password canot be blank.";
+    }elseif(!has_length($admin['password'], array('min' => 12))){
+      $errors[] = "Username must be more than 12 or more chracters";
+    }elseif(!preg_match('/[A-Z]/', $admin['password'])){
+      $errors[] = "Password must contain at least 1 uppercase letter.";
+    }elseif(!preg_match('/[a-z]/', $admin['password'])){
+      $errors[] = "Password must contain at least 1 uppercase letter.";
+    }elseif(!preg_match('/[0-9]/', $admin['password'])){
+      $errors[] = "Password must contain at least 1 uppercase letter.";
+    }elseif(!preg_match('/[^A-Za-z0-9\s]/', $admin['password'])){
+      $errors[] = "Password must contain at least 1 symbol.";
+    }
 
-  if(is_blank($admin['confirm_password'])) {
-      $errors[] = "Confirm password cannot be blank.";
-  } elseif ($admin['password'] !== $admin['confirm_password']) {
-      $errors[] = "Password and confirm password must match.";
+    if(is_blank($admin['confirm_password'])) {
+        $errors[] = "Confirm password cannot be blank.";
+    } elseif ($admin['password'] !== $admin['confirm_password']) {
+        $errors[] = "Password and confirm password must match.";
+    }
   }
+  
 
   return $errors;
 }
@@ -423,7 +429,7 @@ function insert_admin($admin){
   $sql .= "'" . db_escape($db, $admin['email']) . "',";
   $sql .= "'" . db_escape($db, $admin['username']) . "',";
   $sql .= "'" . db_escape($db, $hashed_password) . "'";
-  $sql .= ");";
+  $sql .= ")";
   $result = mysqli_query($db, $sql);
   
   //for INSERT $result is true/false
@@ -438,37 +444,41 @@ function insert_admin($admin){
   
 }
 
-function update_admin($admin){
-  global $db;
+function update_admin($admin) {
+    global $db;
 
-  $errors= validate_admin($admin);
-  if(!empty($errors)){
-    return $errors;
+    $password_sent = !is_blank($admin['password']);
+
+    $errors = validate_admin($admin, ['password_required' => $password_sent]);
+    if (!empty($errors)) {
+      return $errors;
+    }
+
+    $hashed_password = password_hash($admin['password'], PASSWORD_BCRYPT);
+
+    $sql = "UPDATE admins SET ";
+    $sql .= "first_name='" . db_escape($db, $admin['first_name']) . "', ";
+    $sql .= "last_name='" . db_escape($db, $admin['last_name']) . "', ";
+    $sql .= "email='" . db_escape($db, $admin['email']) . "', ";
+    if($password_sent) {
+      $sql .= "hashed_password='" . db_escape($db, $hashed_password) . "', ";
+    }
+    $sql .= "username='" . db_escape($db, $admin['username']) . "' ";
+    $sql .= "WHERE id='" . db_escape($db, $admin['id']) . "' ";
+    $sql .= "LIMIT 1";
+    $result = mysqli_query($db, $sql);
+
+    // For UPDATE statements, $result is true/false
+    if($result) {
+      return true;
+    } else {
+      // UPDATE failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }
   }
-
-  $hashed_password = password_hash($admin['password'], PASSWORD_BCRYPT);
-
-  $sql = "UPDATE admins SET ";
-  $sql .= "first_name='" . db_escape($db, $admin['first_name']) . "', ";
-  $sql .= "last_name='" . db_escape($db, $admin['last_name']) . "', ";
-  $sql .= "email='" . db_escape($db, $admin['email']) . "', ";
-  $sql .= "hashed_password='" . db_escape($db, $hashed_password) . "', ";
-  $sql .= "username='" . db_escape($db, $admin['username']) . "', ";
-  $sql .= "WHERE id='" . db_escape($db, $admin['id']) . "'";
-  $sql .= "LIMIT 1;";
-  $result = mysqli_query($db, $sql);
   
-  //for UPDATE $result is true/false
-  if($result){
-    return true;
-  }else{
-    //UPDATE failed
-    echo mysqli_error($db);
-    db_disconnect;
-    exit;
-  }
-
-}
 function delete_admin($admin){
   global $db;
   $sql = "DELETE FROM admins ";

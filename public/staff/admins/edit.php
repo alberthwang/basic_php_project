@@ -9,6 +9,7 @@ $id = $_GET['id'];
 
 if(is_post_request()){
 	$admin=[];
+	$admin['id']= $id;//need this for update to work or else cant match admin to update
 	$admin['first_name'] = $_POST['first_name'] ?? '';
 	$admin['last_name'] = $_POST['last_name'] ?? '';
 	$admin['email'] = $_POST['email'] ?? '';
@@ -16,7 +17,7 @@ if(is_post_request()){
 	$admin['password'] = $_POST['password'] ?? '';
 	$admin['confirm_password'] = $_POST['confirm_password'] ?? '';
 
-	$result = insert_admin($admin);
+	$result = update_admin($admin);
 	if($result === true){
 		$_SESSION['message'] = 'Admin updated.';
 		redirect_to(url_for('/staff/admins/show.php?id=' . $id));
