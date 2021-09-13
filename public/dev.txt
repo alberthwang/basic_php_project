@@ -86,4 +86,7 @@ added logout
 added log_out_admin() in auth_function.php
 called in logout.php
 
+added password update as optional for admin edit.php
+added log in check for previewing changes.
 
+list pages by subject
