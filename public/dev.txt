@@ -90,3 +90,7 @@ added password update as optional for admin edit.php
 added log in check for previewing changes.
 
 list pages by subject
+nestes pages under subject and fixed some redirects
+cleaned up page creation
+
+cleaned up delete to redirect to list of subject_id
