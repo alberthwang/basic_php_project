@@ -94,3 +94,6 @@ nestes pages under subject and fixed some redirects
 cleaned up page creation
 
 cleaned up delete to redirect to list of subject_id
+
+decrease sql look up calls by 
+wrote new queyr function count_pages_by_subject_id

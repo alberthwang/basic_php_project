@@ -117,6 +117,7 @@ $page_set = find_pages_by_subject_id($id);
         <th>Position</th>
         <th>Visible</th>
   	    <th>Name</th>
+  	    <th>Pages</th>
   	    <th>&nbsp;</th>
   	    <th>&nbsp;</th>
         <th>&nbsp;</th>
@@ -128,7 +129,8 @@ $page_set = find_pages_by_subject_id($id);
           <td><?php echo h($page['id']); ?></td>
           <td><?php echo h($page['position']); ?></td>
           <td><?php echo $page['visible'] == 1 ? 'true' : 'false'; ?></td>
-    	    <td><?php echo h($page['menu_name']); ?></td>
+    	  <td><?php echo h($page['menu_name']); ?></td>
+    	  <td><</td>
           <td><a class="action" href="<?php echo url_for('/staff/pages/show.php?id=' . h(u($page['id']))); ?>">View</a></td>
           <td><a class="action" href="<?php echo url_for('/staff/pages/edit.php?id=' . h(u($page['id']))); ?>">Edit</a></td>
           <td><a class="action" href="<?php echo url_for('/staff/pages/delete.php?id=' . h(u($page['id']))); ?>">Delete</a></td>
